@@ -2,8 +2,6 @@
 
 **A shallow renderer for React components**
 
-[![CircleCI](https://circleci.com/gh/JakeSidSmith/react-shallow-renderer.svg?style=svg)](https://circleci.com/gh/JakeSidSmith/react-shallow-renderer)
-
 ## About
 
 This is an alternative renderer to `react-test-renderer/shallow` with full support for:
@@ -18,16 +16,10 @@ This is an alternative renderer to `react-test-renderer/shallow` with full suppo
 
 The output of this renderer is far more informative than other existing renderers, providing context of memo wrapped components, fragments, etc.
 
-If you're using jest you may enjoy [jest-matcher-react-shallow-snapshot](https://www.npmjs.com/package/@jakesidsmith/jest-matcher-react-shallow-snapshot), which wraps this library for ease of use:
-
-```jsx
-expect(<MyComponent />).toMatchReactShallowSnapshot()
-```
-
 ## Install
 
 ```shell
-npm i @jakesidsmith/react-shallow-renderer -S
+npm i @dabapps/react-shallow-renderer -S
 ```
 
 ## Usage
@@ -36,7 +28,7 @@ Example with jest:
 
 ```jsx
 import React from 'react';
-import { ReactShallowRenderer } from '@jakesidsmith/react-shallow-renderer';
+import { ReactShallowRenderer } from '@dabapps/react-shallow-renderer';
 import MyComponent from './path';
 
 describe('MyComponent', () => {
