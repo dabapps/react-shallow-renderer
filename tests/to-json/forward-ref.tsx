@@ -6,6 +6,7 @@ import { compare } from '../helpers/compare';
 describe('ReactShallowRenderer', () => {
   const ForwardRefComponentReturnsArray: React.ForwardRefExoticComponent<
     React.RefAttributes<HTMLParagraphElement>
+    // tslint:disable-next-line:variable-name
   > = React.forwardRef((((_props: {}, ref: React.Ref<HTMLParagraphElement>) => [
     <p key={1} ref={ref}>
       First

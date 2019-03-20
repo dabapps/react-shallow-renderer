@@ -2,9 +2,9 @@
 
 **A shallow renderer for React components**
 
-[![CircleCI](https://circleci.com/gh/JakeSidSmith/react-shallow-renderer.svg?style=svg)](https://circleci.com/gh/JakeSidSmith/react-shallow-renderer)
-
 ## About
+
+This is a fork of [@jakesidsmith/react-shallow-renderer](https://github.com/jakesidsmith/react-shallow-renderer).
 
 This is an alternative renderer to `react-test-renderer/shallow` with full support for:
 
@@ -18,16 +18,10 @@ This is an alternative renderer to `react-test-renderer/shallow` with full suppo
 
 The output of this renderer is far more informative than other existing renderers, providing context of memo wrapped components, fragments, etc.
 
-If you're using jest you may enjoy [jest-matcher-react-shallow-snapshot](https://www.npmjs.com/package/@jakesidsmith/jest-matcher-react-shallow-snapshot), which wraps this library for ease of use:
-
-```jsx
-expect(<MyComponent />).toMatchReactShallowSnapshot()
-```
-
 ## Install
 
 ```shell
-npm i @jakesidsmith/react-shallow-renderer -S
+npm i @dabapps/react-shallow-renderer -S
 ```
 
 ## Usage
@@ -36,7 +30,7 @@ Example with jest:
 
 ```jsx
 import React from 'react';
-import { ReactShallowRenderer } from '@jakesidsmith/react-shallow-renderer';
+import { ReactShallowRenderer } from '@dabapps/react-shallow-renderer';
 import MyComponent from './path';
 
 describe('MyComponent', () => {
@@ -180,4 +174,19 @@ Or with react-redux:
 const MyComponent = () => <div />;
 
 export default connect(mapStateToProps)(React.memo(MyComponent));
+```
+
+## Updating this fork from upstream
+
+Ensure you have added a remote upstream in git e.g.
+
+```shell
+git remote add upstream git@github.com:JakeSidSmith/react-shallow-renderer.git
+```
+
+Create a new branch (from master) and run the following to pull changes from [upstream](https://github.com/jakesidsmith/react-shallow-renderer):
+
+```shell
+git fetch upstream
+git pull upstream master
 ```
