@@ -4,6 +4,8 @@
 
 ## About
 
+This is a fork of [@jakesidsmith/react-shallow-renderer](https://github.com/jakesidsmith/react-shallow-renderer).
+
 This is an alternative renderer to `react-test-renderer/shallow` with full support for:
 
 * React.memo
