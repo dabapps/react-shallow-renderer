@@ -175,3 +175,18 @@ const MyComponent = () => <div />;
 
 export default connect(mapStateToProps)(React.memo(MyComponent));
 ```
+
+## Updating this fork from upstream
+
+Ensure you have added a remote upstream in git e.g.
+
+```shell
+git remote add upstream git@github.com:JakeSidSmith/react-shallow-renderer.git
+```
+
+Create a new branch (from master) and run the following to pull changes from [upstream](https://github.com/jakesidsmith/react-shallow-renderer):
+
+```shell
+git fetch upstream
+git pull upstream master
+```
