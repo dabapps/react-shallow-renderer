@@ -30,6 +30,7 @@ export interface ForwardRefType {
 }
 
 export type ReactPrimitiveChild =
+  | undefined
   | string
   | number
   | null
@@ -83,7 +84,7 @@ export interface ReactResolvedNode extends ReactElementNode {
   ref: React.Ref<unknown>;
   props: {
     [i: string]: unknown;
-    children: ReactResolvedChildren;
+    children: ReactResolvedChildrenArray;
   };
   _owner: unknown;
   _store: unknown;
