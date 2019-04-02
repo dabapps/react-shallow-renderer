@@ -122,15 +122,6 @@ export class ReactShallowRenderer {
   private resolveNestedChildren(
     children: ReactAnyChildren
   ): ReactResolvedChildren {
-    if (
-      !children ||
-      typeof children === 'string' ||
-      typeof children === 'number' ||
-      typeof children === 'boolean'
-    ) {
-      return children;
-    }
-
     if (!isArray(children)) {
       return this.resolveChild(children);
     }
