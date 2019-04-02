@@ -11,6 +11,15 @@ describe('ReactShallowRenderer', () => {
     </div>
   );
 
+  const ComponentWithMappedChildren: React.FunctionComponent = () => (
+    <div>
+      {[1, 2, 3].map(child => (
+        <p key={child}>{child}</p>
+      ))}
+      {[[<div key={1} />]]}
+    </div>
+  );
+
   describe('toJSON', () => {
     it('renders some simple HTML', () => {
       const element = (
@@ -81,6 +90,75 @@ describe('ReactShallowRenderer', () => {
               _owner: null,
               _store: {},
             },
+          ],
+        },
+        _owner: null,
+        _store: {},
+      });
+    });
+
+    it('renders a component with mapped (nested) children', () => {
+      const element = <ComponentWithMappedChildren />;
+
+      const renderer = new ReactShallowRenderer(element);
+
+      compare(renderer.toJSON(), {
+        $$typeof: elementSymbol,
+        type: 'div',
+        key: null,
+        ref: null,
+        props: {
+          children: [
+            [
+              {
+                $$typeof: elementSymbol,
+                type: 'p',
+                key: '1',
+                ref: null,
+                props: {
+                  children: [1],
+                },
+                _owner: null,
+                _store: {},
+              },
+              {
+                $$typeof: elementSymbol,
+                type: 'p',
+                key: '2',
+                ref: null,
+                props: {
+                  children: [2],
+                },
+                _owner: null,
+                _store: {},
+              },
+              {
+                $$typeof: elementSymbol,
+                type: 'p',
+                key: '3',
+                ref: null,
+                props: {
+                  children: [3],
+                },
+                _owner: null,
+                _store: {},
+              },
+            ],
+            [
+              [
+                {
+                  $$typeof: elementSymbol,
+                  type: 'div',
+                  key: '1',
+                  ref: null,
+                  props: {
+                    children: [],
+                  },
+                  _owner: null,
+                  _store: {},
+                },
+              ],
+            ],
           ],
         },
         _owner: null,

@@ -14,13 +14,29 @@ describe('ReactShallowRenderer', () => {
   });
 
   describe('resolveChildren', () => {
-    it('throws an error if the node is invalid', () => {
+    it('returns an empty array when undefined is provided', () => {
       const renderer = new ReactShallowRenderer(<div />);
 
-      expect(() =>
-        // tslint:disable-next-line:no-string-literal
-        renderer['resolveChildren'](({} as unknown) as ReactAnyNode)
-      ).toThrow(/invalid/i);
+      // tslint:disable-next-line:no-string-literal
+      expect(renderer['resolveChildren'](undefined)).toEqual([]);
+    });
+
+    it('calls resolveNestedChildren with non-undefined children', () => {
+      const renderer = new ReactShallowRenderer(<div />);
+      // tslint:disable-next-line:no-string-literal
+      renderer['resolveNestedChildren'] = jest.fn();
+
+      const nonUndefinedChildren = ['Hello'];
+
+      // tslint:disable-next-line:no-string-literal
+      renderer['resolveChildren'](nonUndefinedChildren);
+
+      // tslint:disable-next-line:no-string-literal
+      expect(renderer['resolveNestedChildren']).toHaveBeenCalledTimes(1);
+      // tslint:disable-next-line:no-string-literal
+      expect(renderer['resolveNestedChildren']).toHaveBeenCalledWith(
+        nonUndefinedChildren
+      );
     });
   });
 

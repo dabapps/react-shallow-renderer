@@ -9,6 +9,8 @@ import {
   providerSymbol,
 } from './constants';
 import {
+  ReactAnyChildren,
+  ReactAnyChildrenArray,
   ReactAnyNode,
   ReactClassNode,
   ReactConsumerNode,
@@ -83,4 +85,10 @@ export function isForwardRef(node: ReactAnyNode): node is ReactForwardRefNode {
 
 export function isPortal(node: ReactAnyNode): node is ReactDOMPortalNode {
   return node.$$typeof === portalSymbol;
+}
+
+export function isArrayOfChildren(
+  node: ReactAnyChildren
+): node is ReactAnyChildrenArray {
+  return Array.isArray(node);
 }

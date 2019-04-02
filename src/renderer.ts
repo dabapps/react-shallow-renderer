@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { elementSymbol } from './constants';
 import {
+  isArrayOfChildren,
   isClass,
   isConsumer,
   isForwardRef,
@@ -14,9 +15,11 @@ import {
 import {
   ReactAnyChild,
   ReactAnyChildren,
+  ReactAnyChildrenArray,
   ReactAnyNode,
   ReactResolvedChild,
   ReactResolvedChildren,
+  ReactResolvedChildrenArray,
 } from './types';
 
 export class ReactShallowRenderer {
@@ -36,18 +39,16 @@ export class ReactShallowRenderer {
         ...node,
         props: {
           ...node.props,
-          children: this.resolveChildren(node),
+          children: this.resolveChildren(node.props.children),
         },
       };
     }
 
     if (isFunction(node)) {
       const rendered = node.type(node.props) as ReactAnyChildren;
-      const children = ([] as ReadonlyArray<ReactAnyChild>)
-        .concat(rendered)
-        .map(child => {
-          return this.resolveChild(child);
-        });
+      const children = this.resolveChildren(
+        ([] as ReactAnyChildrenArray).concat(rendered)
+      );
 
       if (children.length === 1) {
         return children[0];
@@ -58,11 +59,9 @@ export class ReactShallowRenderer {
 
     if (isClass(node)) {
       const rendered = new node.type(node.props).render() as ReactAnyChildren;
-      const children = ([] as ReadonlyArray<ReactAnyChild>)
-        .concat(rendered)
-        .map(child => {
-          return this.resolveChild(child);
-        });
+      const children = this.resolveChildren(
+        ([] as ReactAnyChildrenArray).concat(rendered)
+      );
 
       if (children.length === 1) {
         return children[0];
@@ -90,11 +89,9 @@ export class ReactShallowRenderer {
         node.props,
         node.ref
       ) as ReactAnyChildren;
-      const children = ([] as ReadonlyArray<ReactAnyChild>)
-        .concat(rendered)
-        .map(child => {
-          return this.resolveChild(child);
-        });
+      const children = this.resolveChildren(
+        ([] as ReactAnyChildrenArray).concat(rendered)
+      );
 
       if (children.length === 1) {
         return children[0];
@@ -111,46 +108,31 @@ export class ReactShallowRenderer {
   }
 
   private resolveChildren(
-    node: ReactAnyNode
-  ): ReadonlyArray<ReactResolvedChild> {
-    if (isHTML(node)) {
-      return typeof node.props.children !== 'undefined'
-        ? ([] as ReadonlyArray<ReactAnyChild>)
-            .concat(node.props.children)
-            .map(child => this.resolveChild(child))
-        : [];
+    children: ReactAnyChildren
+  ): ReactResolvedChildrenArray {
+    if (typeof children === 'undefined') {
+      return [];
     }
 
-    if (isFunction(node) || isClass(node)) {
-      return typeof node.props.children !== 'undefined'
-        ? ([] as ReadonlyArray<ReactAnyChild>)
-            .concat(node.props.children)
-            .map(child => this.resolveChild(child))
-        : [];
+    return ([] as ReactResolvedChildrenArray).concat(
+      this.resolveNestedChildren(children)
+    );
+  }
+
+  private resolveNestedChildren(
+    children: ReactAnyChildren
+  ): ReactResolvedChildren {
+    if (!isArrayOfChildren(children)) {
+      return this.resolveChild(children);
     }
 
-    if (
-      isMemo(node) ||
-      isFragment(node) ||
-      isProvider(node) ||
-      isConsumer(node) ||
-      isForwardRef(node)
-    ) {
-      return this.resolveChildren({
-        ...node,
-        type: this.resolveChildName(node),
-      });
-    }
+    return children.map(child => {
+      if (isArrayOfChildren(child)) {
+        return this.resolveNestedChildren(child);
+      }
 
-    if (isPortal(node)) {
-      return typeof node.children !== 'undefined'
-        ? ([] as ReadonlyArray<ReactAnyChild>)
-            .concat(node.children)
-            .map(child => this.resolveChild(child))
-        : [];
-    }
-
-    throw new Error(this.constructInvalidNodeMessage(node));
+      return this.resolveChild(child);
+    });
   }
 
   private resolveChild(node: ReactAnyChild): ReactResolvedChild {
@@ -166,7 +148,7 @@ export class ReactShallowRenderer {
           key: null,
           ref: null,
           props: {
-            children: this.resolveChildren(node),
+            children: this.resolveChildren(node.children),
           },
           _owner: null,
           _store: {},
@@ -179,7 +161,7 @@ export class ReactShallowRenderer {
         type: this.resolveChildName(node),
         props: {
           ...node.props,
-          children: this.resolveChildren(node),
+          children: this.resolveChildren(node.props.children),
         },
       };
     }

@@ -30,6 +30,7 @@ export interface ForwardRefType {
 }
 
 export type ReactPrimitiveChild =
+  | undefined
   | string
   | number
   | null
@@ -38,11 +39,15 @@ export type ReactPrimitiveChild =
   | React.ComponentClass;
 
 export type ReactAnyChild = ReactAnyNode | ReactPrimitiveChild;
-export type ReactAnyChildren = ReadonlyArray<ReactAnyChild> | ReactAnyChild;
+export interface ReactAnyChildrenArray
+  extends ReadonlyArray<ReactAnyChildren> {}
+export type ReactAnyChildren = ReactAnyChildrenArray | ReactAnyChild;
 
 export type ReactResolvedChild = ReactResolvedNode | ReactPrimitiveChild;
+export interface ReactResolvedChildrenArray
+  extends ReadonlyArray<ReactResolvedChildren> {}
 export type ReactResolvedChildren =
-  | ReadonlyArray<ReactResolvedChild>
+  | ReactResolvedChildrenArray
   | ReactResolvedChild;
 
 export type ReactAnyNode = ReactElementNode | ReactDOMPortalNode;
@@ -79,7 +84,7 @@ export interface ReactResolvedNode extends ReactElementNode {
   ref: React.Ref<unknown>;
   props: {
     [i: string]: unknown;
-    children: ReadonlyArray<ReactResolvedChild>;
+    children: ReactResolvedChildrenArray;
   };
   _owner: unknown;
   _store: unknown;
