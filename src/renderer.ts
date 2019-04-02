@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { elementSymbol } from './constants';
 import {
-  isArray,
+  isArrayOfChildren,
   isClass,
   isConsumer,
   isForwardRef,
@@ -122,12 +122,12 @@ export class ReactShallowRenderer {
   private resolveNestedChildren(
     children: ReactAnyChildren
   ): ReactResolvedChildren {
-    if (!isArray(children)) {
+    if (!isArrayOfChildren(children)) {
       return this.resolveChild(children);
     }
 
     return children.map(child => {
-      if (isArray(child)) {
+      if (isArrayOfChildren(child)) {
         return this.resolveNestedChildren(child);
       }
 

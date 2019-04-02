@@ -87,6 +87,8 @@ export function isPortal(node: ReactAnyNode): node is ReactDOMPortalNode {
   return node.$$typeof === portalSymbol;
 }
 
-export function isArray(node: ReactAnyChildren): node is ReactAnyChildrenArray {
+export function isArrayOfChildren(
+  node: ReactAnyChildren
+): node is ReactAnyChildrenArray {
   return Array.isArray(node);
 }
