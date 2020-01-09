@@ -7,7 +7,7 @@ describe('ReactShallowRenderer', () => {
   const ForwardRefComponentReturnsArray: React.ForwardRefExoticComponent<React.RefAttributes<
     HTMLParagraphElement
   >> = React.forwardRef((((
-  // tslint:disable-next-line:variable-name
+    // tslint:disable-next-line:variable-name
     _props: {},
     ref: React.Ref<HTMLParagraphElement>
   ) => [
