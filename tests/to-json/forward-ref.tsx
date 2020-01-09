@@ -1,4 +1,5 @@
 import * as React from 'react';
+
 import { ReactShallowRenderer } from '../../src';
 import { elementSymbol } from '../../src/constants';
 import { compare } from '../helpers/compare';

@@ -1,4 +1,5 @@
 import * as React from 'react';
+
 import { ReactAnyNode, ReactShallowRenderer } from '../src';
 
 describe('ReactShallowRenderer', () => {
