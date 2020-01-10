@@ -1,10 +1,11 @@
 import * as React from 'react';
+
 import { ReactAnyNode, ReactShallowRenderer } from '../src';
 
 describe('ReactShallowRenderer', () => {
   describe('internalToJSON', () => {
     it('throws an error if the node is invalid', () => {
-      const renderer = new ReactShallowRenderer(<div />);
+      const renderer = new ReactShallowRenderer((<div />));
 
       expect(() =>
         // tslint:disable-next-line:no-string-literal
@@ -15,14 +16,14 @@ describe('ReactShallowRenderer', () => {
 
   describe('resolveChildren', () => {
     it('returns an empty array when undefined is provided', () => {
-      const renderer = new ReactShallowRenderer(<div />);
+      const renderer = new ReactShallowRenderer((<div />));
 
       // tslint:disable-next-line:no-string-literal
       expect(renderer['resolveChildren'](undefined)).toEqual([]);
     });
 
     it('calls resolveNestedChildren with non-undefined children', () => {
-      const renderer = new ReactShallowRenderer(<div />);
+      const renderer = new ReactShallowRenderer((<div />));
       // tslint:disable-next-line:no-string-literal
       renderer['resolveNestedChildren'] = jest.fn();
 
@@ -42,7 +43,7 @@ describe('ReactShallowRenderer', () => {
 
   describe('resolveChildName', () => {
     it('throws an error if the node is invalid', () => {
-      const renderer = new ReactShallowRenderer(<div />);
+      const renderer = new ReactShallowRenderer((<div />));
 
       expect(() =>
         // tslint:disable-next-line:no-string-literal
@@ -53,7 +54,7 @@ describe('ReactShallowRenderer', () => {
 
   describe('invalidNodeToString', () => {
     it('returns a string representation of the invalid node', () => {
-      const renderer = new ReactShallowRenderer(<div />);
+      const renderer = new ReactShallowRenderer((<div />));
 
       const selfReferencing: Record<string, any> = {};
 

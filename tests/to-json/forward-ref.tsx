@@ -1,37 +1,44 @@
 import * as React from 'react';
+
 import { ReactShallowRenderer } from '../../src';
 import { elementSymbol } from '../../src/constants';
 import { compare } from '../helpers/compare';
 
 describe('ReactShallowRenderer', () => {
-  const ForwardRefComponentReturnsArray: React.ForwardRefExoticComponent<
-    React.RefAttributes<HTMLParagraphElement>
+  const ForwardRefComponentReturnsArray: React.ForwardRefExoticComponent<React.RefAttributes<
+    HTMLParagraphElement
+  >> = React.forwardRef((((
     // tslint:disable-next-line:variable-name
-  > = React.forwardRef((((_props: {}, ref: React.Ref<HTMLParagraphElement>) => [
+    _props: {},
+    ref: React.Ref<HTMLParagraphElement>
+  ) => [
     <p key={1} ref={ref}>
       First
     </p>,
     <p key={2}>Second</p>,
   ]) as unknown) as React.RefForwardingComponent<HTMLParagraphElement, {}>);
 
-  const ComponentWithChildren: React.RefForwardingComponent<
-    HTMLParagraphElement
-  > = ({ children }, ref) => <p ref={ref}>{children}</p>;
+  const ComponentWithChildren: React.RefForwardingComponent<HTMLParagraphElement> = (
+    { children },
+    ref
+  ) => <p ref={ref}>{children}</p>;
 
-  const ForwardRefComponentWithChildren: React.ForwardRefExoticComponent<
-    React.PropsWithChildren<{}> & React.RefAttributes<HTMLParagraphElement>
-  > = React.forwardRef(ComponentWithChildren);
+  const ForwardRefComponentWithChildren: React.ForwardRefExoticComponent<React.PropsWithChildren<{}> &
+    React.RefAttributes<HTMLParagraphElement>> = React.forwardRef(
+    ComponentWithChildren
+  );
 
-  const ForwardRefComponentWithForwardRefChildren: React.ForwardRefExoticComponent<
-    React.PropsWithChildren<{}> & React.RefAttributes<HTMLParagraphElement>
-  > = React.forwardRef(({ children }, ref) => (
-    <div>
-      <ForwardRefComponentWithChildren ref={ref}>
-        I have children!
-      </ForwardRefComponentWithChildren>
-      {children}
-    </div>
-  ));
+  const ForwardRefComponentWithForwardRefChildren: React.ForwardRefExoticComponent<React.PropsWithChildren<{}> &
+    React.RefAttributes<HTMLParagraphElement>> = React.forwardRef(
+    ({ children }, ref) => (
+      <div>
+        <ForwardRefComponentWithChildren ref={ref}>
+          I have children!
+        </ForwardRefComponentWithChildren>
+        {children}
+      </div>
+    )
+  );
 
   const UnknownForwardRefComponent: React.FunctionComponent = React.forwardRef(
     () => <p>Unknown name</p>
