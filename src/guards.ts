@@ -1,5 +1,3 @@
-import * as React from 'react';
-
 import {
   contextSymbol,
   elementSymbol,
@@ -37,8 +35,7 @@ export function isClass(node: ReactAnyNode): node is ReactClassNode {
   return (
     node.$$typeof === elementSymbol &&
     typeof node.type === 'function' &&
-    (node.type instanceof React.Component ||
-      (node.type.prototype && 'render' in node.type.prototype) ||
+    ((node.type.prototype && 'render' in node.type.prototype) ||
       MATCHES_CLASS.test(Object.toString.call(node.type)))
   );
 }
