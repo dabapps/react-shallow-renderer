@@ -44,8 +44,8 @@ export class ReactShallowRenderer {
       };
     }
 
-    if (isFunction(node)) {
-      const rendered = node.type(node.props) as ReactAnyChildren;
+    if (isClass(node)) {
+      const rendered = new node.type(node.props).render() as ReactAnyChildren;
       const children = this.resolveChildren(
         ([] as ReactAnyChildrenArray).concat(rendered)
       );
@@ -57,8 +57,8 @@ export class ReactShallowRenderer {
       return children;
     }
 
-    if (isClass(node)) {
-      const rendered = new node.type(node.props).render() as ReactAnyChildren;
+    if (isFunction(node)) {
+      const rendered = node.type(node.props) as ReactAnyChildren;
       const children = this.resolveChildren(
         ([] as ReactAnyChildrenArray).concat(rendered)
       );
