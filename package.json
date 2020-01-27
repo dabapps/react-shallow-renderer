@@ -41,7 +41,7 @@
     "jest": "^24.4.0",
     "prettier": "^1.16.4",
     "ts-jest": "^24.0.0",
-    "tslint": "^5.13.1",
+    "tslint": "^5.20.1",
     "tslint-config-dabapps": "^0.6.2",
     "typescript": "^3.3.3333"
   },
