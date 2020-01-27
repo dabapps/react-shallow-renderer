@@ -34,9 +34,10 @@ describe('ReactShallowRenderer', () => {
     </div>
   ));
 
-  const UnknownForwardRefComponent: React.FunctionComponent = React.forwardRef(
-    () => <p>Unknown name</p>
-  );
+  const UnknownForwardRefComponent: React.FunctionComponent = React.forwardRef<
+    unknown,
+    React.PropsWithChildren<{}>
+  >(() => <p>Unknown name</p>);
 
   const ComponentWithUnknownForwardRefChild: React.FunctionComponent = () => (
     <div>
