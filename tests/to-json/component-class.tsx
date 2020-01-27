@@ -199,5 +199,27 @@ describe('ReactShallowRenderer', () => {
         _store: {},
       });
     });
+
+    it("renders a component that is class-like, but doesn't inherit from component", () => {
+      function ClassLike() {
+        return null;
+      }
+
+      ClassLike.prototype.render = () => <p>Here's the bit we care about!</p>;
+
+      const renderer = new ReactShallowRenderer(<ClassLike />);
+
+      expect(renderer.toJSON()).toEqual({
+        $$typeof: elementSymbol,
+        type: 'p',
+        key: null,
+        ref: null,
+        props: {
+          children: ["Here's the bit we care about!"],
+        },
+        _owner: null,
+        _store: {},
+      });
+    });
   });
 });
