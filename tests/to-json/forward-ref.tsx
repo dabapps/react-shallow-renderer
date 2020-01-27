@@ -1,4 +1,5 @@
 import * as React from 'react';
+
 import { ReactShallowRenderer } from '../../src';
 import { elementSymbol } from '../../src/constants';
 import { compare } from '../helpers/compare';
@@ -33,9 +34,10 @@ describe('ReactShallowRenderer', () => {
     </div>
   ));
 
-  const UnknownForwardRefComponent: React.FunctionComponent = React.forwardRef(
-    () => <p>Unknown name</p>
-  );
+  const UnknownForwardRefComponent: React.FunctionComponent = React.forwardRef<
+    unknown,
+    React.PropsWithChildren<{}>
+  >(() => <p>Unknown name</p>);
 
   const ComponentWithUnknownForwardRefChild: React.FunctionComponent = () => (
     <div>
