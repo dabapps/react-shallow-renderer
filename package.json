@@ -1,6 +1,6 @@
 {
   "name": "@dabapps/react-shallow-renderer",
-  "version": "1.0.1",
+  "version": "2.0.0",
   "description": "A shallow renderer for React components",
   "main": "dist/index.js",
   "scripts": {
