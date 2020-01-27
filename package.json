@@ -4,7 +4,7 @@
   "description": "A shallow renderer for React components",
   "main": "dist/index.js",
   "scripts": {
-    "dist": "./scripts/dist",
+    "dist": "rm -rf dist && tsc --project tsconfig.dist.json",
     "prettier-check": "prettier --check '**/*.{ts,tsx,js,jsx}'",
     "prettier": "prettier --write '**/*.{ts,tsx,js,jsx}'",
     "lint": "npm run prettier-check && tslint --project tsconfig.json '{src,tests}/**/*.{ts,tsx}'",
